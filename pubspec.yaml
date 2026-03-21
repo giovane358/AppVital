@@ -37,6 +37,8 @@ dependencies:
   flutter_bloc: ^9.1.1
   connectivity_plus: ^7.0.0
   go_router: ^17.1.0
+  brasil_fields: ^1.18.0
+ 
 
 dev_dependencies:
   flutter_test:
@@ -64,6 +66,8 @@ flutter:
   assets:
  #  - lib/assets/
    - lib/assets/logo.png
+   - lib/assets/logoName.png
+
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
