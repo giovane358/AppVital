@@ -23,7 +23,7 @@ class _SplashView extends StatelessWidget {
     return BlocListener<SplashBloc, SplashState>(
       listener: (context, state) {
         if (state is SplashConnected) {
-          Navigator.of(context).pushReplacementNamed('/home');
+          Navigator.of(context).pushReplacementNamed('/login');
         }
       },
       child: Scaffold(
@@ -40,7 +40,7 @@ class _SplashView extends StatelessWidget {
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [Image.asset(Img.logSemNome)],
+                    children: [Image.asset(Img.logoSemNome)],
                   ),
                 );
               }
