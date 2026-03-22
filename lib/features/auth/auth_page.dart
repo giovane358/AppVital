@@ -50,77 +50,82 @@ class _LoginViewState extends State<_LoginView> {
         body: BlocBuilder<AuthBloc, AuthState>(
           builder: (context, state) {
             return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(Img.logoName),
-                  SizedBox(height: 35),
-                  Text('Acesse sua conta', style: TextStyle(fontSize: 32)),
-                  SizedBox(height: 35),
-                  toggleCustom(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        GestureDetector(
-                          onTap: () => setState(() => _isLogin = true),
-                          child: AnimatedContainer(
-                            duration: const Duration(microseconds: 200),
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 50,
-                              vertical: 5,
-                            ),
-                            decoration: BoxDecoration(
-                              color: _isLogin
-                                  ? AppColos.colorButtonRed
-                                  : AppColos.colorBackground,
-                              borderRadius: BorderRadius.circular(30),
-                              border: _isLogin
-                                  ? Border.all(color: Colors.black, width: 2)
-                                  : Border.all(color: Colors.white, width: 0),
-                            ),
-                            child: Text(
-                              'Login',
-                              style: TextStyle(
-                                fontSize: 20,
-                                color: _isLogin ? Colors.white : Colors.black45,
-                                fontWeight: FontWeight.bold,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Image.asset(Img.logoName, width: 250),
+                    SizedBox(height: 5),
+                    Text('Acesse sua conta', style: TextStyle(fontSize: 32)),
+                    SizedBox(height: 15),
+                    toggleCustom(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          GestureDetector(
+                            onTap: () => setState(() => _isLogin = true),
+                            child: AnimatedContainer(
+                              duration: const Duration(microseconds: 200),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 40,
+                                vertical: 1,
+                              ),
+                              decoration: BoxDecoration(
+                                color: _isLogin
+                                    ? AppColos.colorButtonRed
+                                    : AppColos.colorBackground,
+                                borderRadius: BorderRadius.circular(30),
+                                border: _isLogin
+                                    ? Border.all(color: Colors.black, width: 2)
+                                    : Border.all(color: Colors.white, width: 0),
+                              ),
+                              child: Text(
+                                'Login',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: _isLogin
+                                      ? Colors.white
+                                      : Colors.black45,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        GestureDetector(
-                          onTap: () => setState(() => _isLogin = false),
-                          child: AnimatedContainer(
-                            duration: const Duration(microseconds: 200),
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 40,
-                              vertical: 5,
-                            ),
-                            decoration: BoxDecoration(
-                              color: _isLogin
-                                  ? AppColos.colorBackground
-                                  : AppColos.colorButtonRed,
-                              borderRadius: BorderRadius.circular(30),
-                              border: _isLogin
-                                  ? Border.all(color: Colors.white, width: 0)
-                                  : Border.all(color: Colors.black, width: 2),
-                            ),
-                            child: Text(
-                              'Register',
-                              style: TextStyle(
-                                fontSize: 20,
-                                color: _isLogin ? Colors.black45 : Colors.white,
-                                fontWeight: FontWeight.bold,
+                          GestureDetector(
+                            onTap: () => setState(() => _isLogin = false),
+                            child: AnimatedContainer(
+                              duration: const Duration(microseconds: 200),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 40,
+                                vertical: 1,
+                              ),
+                              decoration: BoxDecoration(
+                                color: _isLogin
+                                    ? AppColos.colorBackground
+                                    : AppColos.colorButtonRed,
+                                borderRadius: BorderRadius.circular(30),
+                                border: _isLogin
+                                    ? Border.all(color: Colors.white, width: 0)
+                                    : Border.all(color: Colors.black, width: 2),
+                              ),
+                              child: Text(
+                                'Register',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: _isLogin
+                                      ? Colors.black45
+                                      : Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 20),
-                  if (_isLogin) _ForumLogin() else _ForumRegister(),
-                ],
+                    SizedBox(height: 20),
+                    if (_isLogin) _ForumLogin() else _ForumRegister(),
+                  ],
+                ),
               ),
             );
           },
@@ -220,9 +225,7 @@ class _ForumRegister extends StatefulWidget {
 class __ForumRegisterState extends State<_ForumRegister> {
   final _nomeController = TextEditingController();
   final _cpfController = TextEditingController();
-  final _telefoneController = TextEditingController(
-    text: UtilBrasilFields.obterTelefone('(00) 99999-8877', mascara: false),
-  );
+  final _telefoneController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
@@ -231,121 +234,124 @@ class __ForumRegisterState extends State<_ForumRegister> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Form(
-        child: Column(
-          children: [
-            textFieldCustom(
-              obscureText: false,
-              hint: 'Nome Completo',
-              controller: _nomeController,
-              keyboardType: TextInputType.name,
+    return Form(
+      child: Column(
+        children: [
+          textFieldCustom(
+            obscureText: false,
+            hint: 'Nome Completo',
+            controller: _nomeController,
+            keyboardType: TextInputType.name,
+          ),
+          SizedBox(height: 10),
+          textFieldFormatterCustom(
+            obscureText: false,
+            hint: 'CPF',
+            controller: _cpfController,
+            formatter: CpfInputFormatter(),
+            keyboardType: TextInputType.number,
+          ),
+          SizedBox(height: 10),
+          textFieldFormatterCustom(
+            obscureText: false,
+            hint: 'Telefone',
+            controller: _telefoneController,
+            formatter: TelefoneInputFormatter(),
+            keyboardType: TextInputType.number,
+          ),
+          SizedBox(height: 10),
+          textFieldCustom(
+            obscureText: false,
+            hint: 'E-mail',
+            controller: _emailController,
+            keyboardType: TextInputType.emailAddress,
+          ),
+          SizedBox(height: 10),
+          textFieldPasswordCustom(
+            icon: GestureDetector(
+              onTap: () {
+                if (_iconPassword == Icons.visibility_outlined) {
+                  setState(() {
+                    _iconPassword = Icons.visibility_off_outlined;
+                    _obscureText = false;
+                  });
+                } else {
+                  setState(() {
+                    _iconPassword = Icons.visibility_outlined;
+                    _obscureText = true;
+                  });
+                }
+              },
+              child: Icon(_iconPassword),
             ),
-            textFieldFormatterCustom(
-              obscureText: false,
-              hint: 'CPF',
-              controller: _cpfController,
-              formatter: CpfInputFormatter(),
+            obscureText: _obscureText,
+            hint: 'Senha',
+            controller: _passwordController,
+          ),
+          SizedBox(height: 10),
+          textFieldPasswordCustom(
+            icon: GestureDetector(
+              onTap: () {
+                if (_iconPassword == Icons.visibility_outlined) {
+                  setState(() {
+                    _iconPassword = Icons.visibility_off_outlined;
+                    _obscureText = false;
+                  });
+                } else {
+                  setState(() {
+                    _iconPassword = Icons.visibility_outlined;
+                    _obscureText = true;
+                  });
+                }
+              },
+              child: Icon(_iconPassword),
             ),
-            textFieldFormatterCustom(
-              obscureText: false,
-              hint: 'Telefone',
-              controller: _telefoneController,
-              formatter: TelefoneInputFormatter(),
-            ),
-            textFieldCustom(
-              obscureText: false,
-              hint: 'E-mail',
-              controller: _emailController,
-              keyboardType: TextInputType.number,
-            ),
-            textFieldPasswordCustom(
-              icon: GestureDetector(
+            obscureText: _obscureText,
+            hint: 'Confirme a Senha',
+            controller: _confirmPasswordController,
+          ),
+          SizedBox(height: 10),
+          buttonCustom(
+            child: Center(
+              child: GestureDetector(
                 onTap: () {
-                  if (_iconPassword == Icons.visibility_outlined) {
-                    setState(() {
-                      _iconPassword = Icons.visibility_off_outlined;
-                      _obscureText = false;
-                    });
-                  } else {
-                    setState(() {
-                      _iconPassword = Icons.visibility_outlined;
-                      _obscureText = true;
-                    });
-                  }
-                },
-                child: Icon(_iconPassword),
-              ),
-
-              obscureText: _obscureText,
-              hint: 'Senha',
-              controller: _passwordController,
-            ),
-            textFieldPasswordCustom(
-              icon: GestureDetector(
-                onTap: () {
-                  if (_iconPassword == Icons.visibility_outlined) {
-                    setState(() {
-                      _iconPassword = Icons.visibility_off_outlined;
-                      _obscureText = false;
-                    });
-                  } else {
-                    setState(() {
-                      _iconPassword = Icons.visibility_outlined;
-                      _obscureText = true;
-                    });
-                  }
-                },
-                child: Icon(_iconPassword),
-              ),
-
-              obscureText: _obscureText,
-              hint: 'Confirme a Senha',
-              controller: _confirmPasswordController,
-            ),
-
-            buttonCustom(
-              child: Center(
-                child: GestureDetector(
-                  onTap: () {
-                    if (UtilBrasilFields.isCPFValido(
-                          _cpfController.text.trim(),
-                        ) ==
-                        true) {
-                      if (_passwordController.text.trim() ==
-                          _confirmPasswordController.text.trim()) {
-                        context.read<AuthBloc>().add(
-                          AuthRegisterStart(
-                            name: _nomeController.text.trim(),
-                            cpf: _cpfController.text.trim(),
-                            telefone: _telefoneController.text.trim(),
-                            email: _emailController.text.trim(),
-                            password: _passwordController.text.trim(),
-                          ),
-                        );
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Senhas não confere')),
-                        );
-                      }
+                  if (UtilBrasilFields.isCPFValido(
+                        _cpfController.text.trim(),
+                      ) ==
+                      true) {
+                    if (_passwordController.text.trim() ==
+                        _confirmPasswordController.text.trim()) {
+                      context.read<AuthBloc>().add(
+                        AuthRegisterStart(
+                          name: _nomeController.text.trim(),
+                          cpf: _cpfController.text.trim(),
+                          telefone: _telefoneController.text.trim(),
+                          email: _emailController.text.trim(),
+                          password: _passwordController.text.trim(),
+                        ),
+                      );
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('CPF incorreto')),
+                        const SnackBar(content: Text('Senhas não confere')),
                       );
                     }
-                  },
-                  child: Text(
-                    'Entrar',
-                    style: TextStyle(
-                      fontSize: 24,
-                      color: AppColos.colorFontWhite,
-                    ),
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('CPF incorreto')),
+                    );
+                  }
+                },
+                child: Text(
+                  'Entrar',
+                  style: TextStyle(
+                    fontSize: 24,
+                    color: AppColos.colorFontWhite,
                   ),
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
