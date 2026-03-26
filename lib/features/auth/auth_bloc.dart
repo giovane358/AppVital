@@ -47,7 +47,7 @@ class AuthRegistroFailed extends AuthState {}
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   // credencias
   static const _validEmail = 'giovane@gmail.com';
-  static const _validPass = 'StheLinda';
+  static const _validPass = '123456';
 
   AuthBloc() : super(AuthLoading()) {
     on<AuthLoginStart>(_checkLogin);

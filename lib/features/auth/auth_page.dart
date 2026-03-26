@@ -1,7 +1,9 @@
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:vital_application/core/utils/colors.dart';
 import 'package:vital_application/core/utils/img.dart';
+import 'package:vital_application/core/utils/widget.dart';
 import 'package:vital_application/features/auth/auth_widget.dart';
 import 'auth_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,7 +39,7 @@ class _LoginViewState extends State<_LoginView> {
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is AuthLoginSuccess) {
-          Navigator.of(context).pushReplacementNamed('/home');
+          Navigator.of(context).pushReplacementNamed('/login');
         }
         if (state is AuthLoginFailed) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -46,7 +48,7 @@ class _LoginViewState extends State<_LoginView> {
         }
       },
       child: Scaffold(
-        backgroundColor: AppColos.colorBackground,
+        backgroundColor: AppColors.colorBackground,
         body: BlocBuilder<AuthBloc, AuthState>(
           builder: (context, state) {
             return Center(
@@ -71,8 +73,8 @@ class _LoginViewState extends State<_LoginView> {
                               ),
                               decoration: BoxDecoration(
                                 color: _isLogin
-                                    ? AppColos.colorButtonRed
-                                    : AppColos.colorBackground,
+                                    ? AppColors.colorButtonRed
+                                    : AppColors.colorBackground,
                                 borderRadius: BorderRadius.circular(30),
                                 border: _isLogin
                                     ? Border.all(color: Colors.black, width: 2)
@@ -100,8 +102,8 @@ class _LoginViewState extends State<_LoginView> {
                               ),
                               decoration: BoxDecoration(
                                 color: _isLogin
-                                    ? AppColos.colorBackground
-                                    : AppColos.colorButtonRed,
+                                    ? AppColors.colorBackground
+                                    : AppColors.colorButtonRed,
                                 borderRadius: BorderRadius.circular(30),
                                 border: _isLogin
                                     ? Border.all(color: Colors.white, width: 0)
@@ -153,15 +155,14 @@ class __ForumLoginState extends State<_ForumLogin> {
     return Form(
       child: Column(
         children: [
-          textFieldCustom(
-            obscureText: false,
+          TextFieldCustom(
             hint: 'E-mail',
             controller: _emailController,
             keyboardType: TextInputType.emailAddress,
           ),
           SizedBox(height: 10),
-          textFieldPasswordCustom(
-            icon: GestureDetector(
+          TextFieldCustom(
+            suffixIcon: GestureDetector(
               onTap: () {
                 if (_iconPassword == Icons.visibility_outlined) {
                   setState(() {
@@ -184,30 +185,27 @@ class __ForumLoginState extends State<_ForumLogin> {
           ),
           SizedBox(height: 10),
           buttonCustom(
-            child: Center(
-              child: GestureDetector(
-                onTap: () {
-                  context.read<AuthBloc>().add(
-                    AuthLoginStart(
-                      email: _emailController.text.trim(),
-                      password: _passwordController.text.trim(),
-                    ),
-                  );
-                },
-                child: Text(
-                  'Entrar',
-                  style: TextStyle(
-                    fontSize: 24,
-                    color: AppColos.colorFontWhite,
-                  ),
+            onTap: () {
+              context.read<AuthBloc>().add(
+                AuthLoginStart(
+                  email: _emailController.text.trim(),
+                  password: _passwordController.text.trim(),
                 ),
-              ),
+              );
+            },
+            child: Text(
+              'Entrar',
+              style: TextStyle(fontSize: 24, color: AppColors.colorFontWhite),
             ),
           ),
+
           SizedBox(height: 10),
-          Text(
-            'Esqueci a senha!',
-            style: TextStyle(fontSize: 12, color: Colors.black38),
+          GestureDetector(
+            onTap: () => Navigator.pushReplacementNamed(context, '/recp'),
+            child: Text(
+              'Esqueci a senha!',
+              style: TextStyle(fontSize: 12, color: Colors.black38),
+            ),
           ),
         ],
       ),
@@ -237,38 +235,40 @@ class __ForumRegisterState extends State<_ForumRegister> {
     return Form(
       child: Column(
         children: [
-          textFieldCustom(
-            obscureText: false,
+          TextFieldCustom(
             hint: 'Nome Completo',
             controller: _nomeController,
             keyboardType: TextInputType.name,
           ),
           SizedBox(height: 10),
-          textFieldFormatterCustom(
-            obscureText: false,
+          TextFieldCustom(
             hint: 'CPF',
             controller: _cpfController,
-            formatter: CpfInputFormatter(),
+            inputFormatters: [
+              FilteringTextInputFormatter.digitsOnly,
+              CpfInputFormatter(),
+            ],
             keyboardType: TextInputType.number,
           ),
           SizedBox(height: 10),
-          textFieldFormatterCustom(
-            obscureText: false,
+          TextFieldCustom(
             hint: 'Telefone',
             controller: _telefoneController,
-            formatter: TelefoneInputFormatter(),
+            inputFormatters: [
+              FilteringTextInputFormatter.digitsOnly,
+              TelefoneInputFormatter(),
+            ],
             keyboardType: TextInputType.number,
           ),
           SizedBox(height: 10),
-          textFieldCustom(
-            obscureText: false,
+          TextFieldCustom(
             hint: 'E-mail',
             controller: _emailController,
             keyboardType: TextInputType.emailAddress,
           ),
           SizedBox(height: 10),
-          textFieldPasswordCustom(
-            icon: GestureDetector(
+          TextFieldCustom(
+            suffixIcon: GestureDetector(
               onTap: () {
                 if (_iconPassword == Icons.visibility_outlined) {
                   setState(() {
@@ -289,8 +289,8 @@ class __ForumRegisterState extends State<_ForumRegister> {
             controller: _passwordController,
           ),
           SizedBox(height: 10),
-          textFieldPasswordCustom(
-            icon: GestureDetector(
+          TextFieldCustom(
+            suffixIcon: GestureDetector(
               onTap: () {
                 if (_iconPassword == Icons.visibility_outlined) {
                   setState(() {
@@ -312,43 +312,34 @@ class __ForumRegisterState extends State<_ForumRegister> {
           ),
           SizedBox(height: 10),
           buttonCustom(
-            child: Center(
-              child: GestureDetector(
-                onTap: () {
-                  if (UtilBrasilFields.isCPFValido(
-                        _cpfController.text.trim(),
-                      ) ==
-                      true) {
-                    if (_passwordController.text.trim() ==
-                        _confirmPasswordController.text.trim()) {
-                      context.read<AuthBloc>().add(
-                        AuthRegisterStart(
-                          name: _nomeController.text.trim(),
-                          cpf: _cpfController.text.trim(),
-                          telefone: _telefoneController.text.trim(),
-                          email: _emailController.text.trim(),
-                          password: _passwordController.text.trim(),
-                        ),
-                      );
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Senhas não confere')),
-                      );
-                    }
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('CPF incorreto')),
-                    );
-                  }
-                },
-                child: Text(
-                  'Entrar',
-                  style: TextStyle(
-                    fontSize: 24,
-                    color: AppColos.colorFontWhite,
-                  ),
-                ),
-              ),
+            onTap: () {
+              if (UtilBrasilFields.isCPFValido(_cpfController.text.trim()) ==
+                  true) {
+                if (_passwordController.text.trim() ==
+                    _confirmPasswordController.text.trim()) {
+                  context.read<AuthBloc>().add(
+                    AuthRegisterStart(
+                      name: _nomeController.text.trim(),
+                      cpf: _cpfController.text.trim(),
+                      telefone: _telefoneController.text.trim(),
+                      email: _emailController.text.trim(),
+                      password: _passwordController.text.trim(),
+                    ),
+                  );
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Senhas não confere')),
+                  );
+                }
+              } else {
+                ScaffoldMessenger.of(
+                  context,
+                ).showSnackBar(const SnackBar(content: Text('CPF incorreto')));
+              }
+            },
+            child: Text(
+              'Entrar',
+              style: TextStyle(fontSize: 24, color: AppColors.colorFontWhite),
             ),
           ),
         ],

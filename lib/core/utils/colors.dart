@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class AppColos {
+class AppColors {
   static const colorBackground = Color(0xF4F4F4F4);
   static const colorButtonRed = Color(0xFFC81D25);
   static const colorFrontBlack = Color.fromARGB(0, 0, 0, 0);
