@@ -1,10 +1,12 @@
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:vital_application/core/service/auth_service.dart';
 import 'package:vital_application/core/utils/colors.dart';
 import 'package:vital_application/core/utils/img.dart';
 import 'package:vital_application/core/utils/widget.dart';
 import 'package:vital_application/features/auth/auth_widget.dart';
+import 'package:vital_application/repository/auth_repository.dart';
 import 'auth_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -13,7 +15,10 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(create: (_) => AuthBloc(), child: _LoginView());
+    return BlocProvider(
+      create: (context) => AuthBloc(AuthRepository(AuthService())),
+      child: _LoginView(),
+    );
   }
 }
 
@@ -39,7 +44,7 @@ class _LoginViewState extends State<_LoginView> {
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is AuthLoginSuccess) {
-          Navigator.of(context).pushReplacementNamed('/login');
+          Navigator.of(context).pushReplacementNamed('/home');
         }
         if (state is AuthLoginFailed) {
           ScaffoldMessenger.of(context).showSnackBar(

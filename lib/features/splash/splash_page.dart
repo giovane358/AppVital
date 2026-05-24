@@ -22,7 +22,11 @@ class _SplashView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<SplashBloc, SplashState>(
       listener: (context, state) {
-        if (state is SplashConnected) {
+        if (state is SplashAuthenticated) {
+          Navigator.of(context).pushReplacementNamed('/home');
+        }
+
+        if (state is SplashUnauthenticated) {
           Navigator.of(context).pushReplacementNamed('/login');
         }
       },

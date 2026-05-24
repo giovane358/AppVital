@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vital_application/repository/auth_repository.dart';
 
 // Eventos
 abstract class AuthEvent {}
@@ -46,10 +47,9 @@ class AuthRegistroFailed extends AuthState {}
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   // credencias
-  static const _validEmail = 'giovane@gmail.com';
-  static const _validPass = '123456';
+  final AuthRepository repository;
 
-  AuthBloc() : super(AuthLoading()) {
+  AuthBloc(this.repository) : super(AuthLoading()) {
     on<AuthLoginStart>(_checkLogin);
     on<AuthRegisterStart>(_checkRegister);
   }
@@ -58,10 +58,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     AuthLoginStart event,
     Emitter<AuthState> emit,
   ) async {
-    await Future.delayed(const Duration(seconds: 2));
+    try {
+      await Future.delayed(const Duration(seconds: 2));
 
-    final isValid = event.email == _validEmail && event.password == _validPass;
-    emit(isValid ? AuthLoginSuccess() : AuthLoginFailed());
+      repository.login(email: event.email, senha: event.password);
+
+      print('Login bem-sucedido');
+
+      emit(AuthLoginSuccess());
+    } catch (e) {
+      emit(AuthLoginFailed());
+    }
   }
 
   Future<void> _checkRegister(
@@ -69,7 +76,19 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     Emitter<AuthState> emit,
   ) async {
     await Future.delayed(const Duration(seconds: 2));
-
-    emit(AuthRegisterSuccess());
+    try {
+      await repository.register(
+        nome: event.name,
+        cpf: event.cpf,
+        phone: event.telefone,
+        email: event.email,
+        senha: event.password,
+      );
+      print('Registro bem-sucedido');
+      emit(AuthRegisterSuccess());
+    } catch (e) {
+      print('Erro no registro: $e');
+      emit(AuthRegistroFailed());
+    }
   }
 }
