@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vital_application/features/home/home_page.dart';
-import 'package:vital_application/features/occurrences/new_occurrences_page.dart';
+import 'package:vital_application/features/user/occurrences/new_occurrences_page.dart';
 
 void main() {
   runApp(const MyApp());
