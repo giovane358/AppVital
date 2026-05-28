@@ -44,29 +44,40 @@ class _NewOccurrencesPageState extends State<NewOccurrencesPage> {
     final double width = MediaQuery.of(context).size.width;
 
     return Scaffold(
+
       backgroundColor: AppColors.colorBackground,
-      appBar: AppBar(
-        title: const Text(
-          'Reportar Emergência',
-          style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+
+        appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(200.0),
+
+          child: AppBar(
+
+            elevation: 0,
+            backgroundColor: AppColors.colorButtonRed,
+
+          title: const Text(
+            'Nova Ocorrência',
+            style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white, size: 20),
+            onPressed: () => Navigator.pop(context),
+          ),
+
+          ),
         ),
-        backgroundColor: AppColors.colorButtonRed,
-        centerTitle: true,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white, size: 20),
-          onPressed: () => Navigator.pop(context),
-        ),
-      ),
+
+
       body: SafeArea(
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
+
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 24),
 
-              // 1. TÍTULO DA SEÇÃO (Alinhado com a margem do TextFieldCustom)
-              // Mudamos para 45 para casar milimetricamente com o início do seu input
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 45),
                 child: Text(
@@ -80,7 +91,7 @@ class _NewOccurrencesPageState extends State<NewOccurrencesPage> {
               ),
               const SizedBox(height: 16),
 
-              // 2. INPUTS DE TEXTO (Puxados direto da sua pasta de widgets)
+
               TextFieldCustom(
                 hint: 'Título da Ocorrência (Ex: Acidente, Incêndio)',
                 controller: _titleController,
