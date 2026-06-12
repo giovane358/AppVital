@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vital_application/core/utils/colors.dart';
 import 'package:vital_application/core/widgets/card_menu.dart';
-import 'package:vital_application/features/user/menu/user_menu_bloc.dart';
+import 'package:vital_application/features/menu/user_menu_bloc.dart';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // ENTRY POINT
@@ -16,8 +16,8 @@ class UserMenuPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => UserMenuBloc()
-        ..add(const StartUserMenu(userName: 'Giovane')),
+      create: (_) =>
+          UserMenuBloc()..add(const StartUserMenu(userName: 'Giovane')),
       child: const _UserMenuView(),
     );
   }
@@ -60,7 +60,9 @@ class _UserMenuScaffold extends StatelessWidget {
         children: [
           // Faixa vermelha no topo (padrão do projeto — vide home_page.dart)
           Positioned(
-            top: 0, left: 0, right: 0,
+            top: 0,
+            left: 0,
+            right: 0,
             child: Container(
               height: height * 0.22,
               color: AppColors.colorButtonRed,
@@ -255,9 +257,7 @@ class _UserMenuSafetyTips extends StatelessWidget {
       child: Card(
         color: Colors.white,
         elevation: 2,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
@@ -273,7 +273,7 @@ class _UserMenuSafetyTips extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               ..._tips.map(
-                    (tip) => Padding(
+                (tip) => Padding(
                   padding: const EdgeInsets.only(bottom: 10),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,

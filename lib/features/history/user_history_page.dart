@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vital_application/models/ocorrencia_model.dart';
 import 'package:vital_application/core/utils/colors.dart';
-import 'package:vital_application/features/user/history/user_history_bloc.dart';
+import 'package:vital_application/features/history/user_history_bloc.dart';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // ENTRY POINT
@@ -59,15 +59,19 @@ class _UserHistoryScaffold extends StatelessWidget {
         title: const Text(
           'Histórico',
           style: TextStyle(
-              color: Colors.white,
-              fontSize: 18,
-              fontWeight: FontWeight.bold),
+            color: Colors.white,
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         backgroundColor: AppColors.colorButtonRed,
         centerTitle: true,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new_rounded,
-              color: Colors.white, size: 20),
+          icon: const Icon(
+            Icons.arrow_back_ios_new_rounded,
+            color: Colors.white,
+            size: 20,
+          ),
           onPressed: () => Navigator.pop(context),
         ),
       ),
@@ -75,8 +79,7 @@ class _UserHistoryScaffold extends StatelessWidget {
         builder: (context, state) {
           if (state is UserHistoryLoading) {
             return const Center(
-              child: CircularProgressIndicator(
-                  color: AppColors.colorButtonRed),
+              child: CircularProgressIndicator(color: AppColors.colorButtonRed),
             );
           }
           if (state is UserHistoryEmpty) {
@@ -110,9 +113,10 @@ class _HistoryEmpty extends StatelessWidget {
           Text(
             'Nenhuma ocorrência anterior',
             style: TextStyle(
-                fontSize: 16,
-                color: Colors.black45,
-                fontWeight: FontWeight.w500),
+              fontSize: 16,
+              color: Colors.black45,
+              fontWeight: FontWeight.w500,
+            ),
           ),
         ],
       ),
@@ -134,8 +138,7 @@ class _HistoryList extends StatelessWidget {
 
     return ListView.separated(
       physics: const BouncingScrollPhysics(),
-      padding: EdgeInsets.symmetric(
-          horizontal: width * 0.05, vertical: 20),
+      padding: EdgeInsets.symmetric(horizontal: width * 0.05, vertical: 20),
       itemCount: ocorrencias.length,
       separatorBuilder: (_, __) => const SizedBox(height: 12),
       itemBuilder: (context, index) =>
@@ -170,9 +173,7 @@ class _HistoryCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
-        border: Border(
-          left: BorderSide(color: _nivelColor, width: 5),
-        ),
+        border: Border(left: BorderSide(color: _nivelColor, width: 5)),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.06),
@@ -190,13 +191,16 @@ class _HistoryCard extends StatelessWidget {
               Text(
                 ocorrencia.id,
                 style: const TextStyle(
-                    fontSize: 11,
-                    color: Colors.black38,
-                    fontWeight: FontWeight.w500),
+                  fontSize: 11,
+                  color: Colors.black38,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
               Container(
-                padding:
-                const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 3,
+                ),
                 decoration: BoxDecoration(
                   color: _nivelColor.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(20),
@@ -204,9 +208,10 @@ class _HistoryCard extends StatelessWidget {
                 child: Text(
                   ocorrencia.nivel,
                   style: TextStyle(
-                      fontSize: 11,
-                      color: _nivelColor,
-                      fontWeight: FontWeight.w700),
+                    fontSize: 11,
+                    color: _nivelColor,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
               ),
             ],
@@ -215,21 +220,24 @@ class _HistoryCard extends StatelessWidget {
           Text(
             ocorrencia.titulo,
             style: const TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.w700,
-                color: Colors.black87),
+              fontSize: 15,
+              fontWeight: FontWeight.w700,
+              color: Colors.black87,
+            ),
           ),
           const SizedBox(height: 4),
           Row(
             children: [
-              const Icon(Icons.location_on_outlined,
-                  size: 13, color: Colors.black45),
+              const Icon(
+                Icons.location_on_outlined,
+                size: 13,
+                color: Colors.black45,
+              ),
               const SizedBox(width: 4),
               Expanded(
                 child: Text(
                   ocorrencia.local,
-                  style: const TextStyle(
-                      fontSize: 12, color: Colors.black45),
+                  style: const TextStyle(fontSize: 12, color: Colors.black45),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -239,13 +247,15 @@ class _HistoryCard extends StatelessWidget {
           const SizedBox(height: 4),
           Row(
             children: [
-              const Icon(Icons.calendar_today_outlined,
-                  size: 13, color: Colors.black45),
+              const Icon(
+                Icons.calendar_today_outlined,
+                size: 13,
+                color: Colors.black45,
+              ),
               const SizedBox(width: 4),
               Text(
                 ocorrencia.data,
-                style:
-                const TextStyle(fontSize: 12, color: Colors.black45),
+                style: const TextStyle(fontSize: 12, color: Colors.black45),
               ),
             ],
           ),

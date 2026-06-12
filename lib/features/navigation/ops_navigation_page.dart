@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vital_application/models/ocorrencia_model.dart';
 import 'package:vital_application/core/utils/colors.dart';
 import 'package:vital_application/core/widgets/button_custom.dart';
-import 'package:vital_application/features/ops/navigation/ops_navigation_bloc.dart';
+import 'package:vital_application/features/navigation/ops_navigation_bloc.dart';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // ENTRY POINT
@@ -63,15 +63,19 @@ class _OpsNavigationScaffold extends StatelessWidget {
         title: const Text(
           'Navegação',
           style: TextStyle(
-              color: Colors.white,
-              fontSize: 18,
-              fontWeight: FontWeight.bold),
+            color: Colors.white,
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         backgroundColor: AppColors.colorButtonRed,
         centerTitle: true,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new_rounded,
-              color: Colors.white, size: 20),
+          icon: const Icon(
+            Icons.arrow_back_ios_new_rounded,
+            color: Colors.white,
+            size: 20,
+          ),
           onPressed: () => Navigator.pop(context),
         ),
       ),
@@ -79,8 +83,7 @@ class _OpsNavigationScaffold extends StatelessWidget {
         builder: (context, state) {
           if (state is OpsNavigationLoading) {
             return const Center(
-              child: CircularProgressIndicator(
-                  color: AppColors.colorButtonRed),
+              child: CircularProgressIndicator(color: AppColors.colorButtonRed),
             );
           }
           if (state is OpsNavigationLoaded) {
@@ -109,10 +112,7 @@ class _NavigationContent extends StatelessWidget {
     return Column(
       children: [
         // Área do mapa (placeholder — substituir por flutter_map ou google_maps)
-        _MapPlaceholder(
-          height: height * 0.40,
-          local: state.ocorrencia.local,
-        ),
+        _MapPlaceholder(height: height * 0.40, local: state.ocorrencia.local),
 
         // Painel inferior de navegação
         Expanded(
@@ -120,7 +120,9 @@ class _NavigationContent extends StatelessWidget {
             physics: const BouncingScrollPhysics(),
             child: Padding(
               padding: EdgeInsets.symmetric(
-                  horizontal: width * 0.05, vertical: 20),
+                horizontal: width * 0.05,
+                vertical: 20,
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -138,9 +140,7 @@ class _NavigationContent extends StatelessWidget {
                   // Botão confirmar chegada
                   ButtonCustom(
                     onTap: () {
-                      context
-                          .read<OpsNavigationBloc>()
-                          .add(ChegouAoLocal());
+                      context.read<OpsNavigationBloc>().add(ChegouAoLocal());
                     },
                     child: const Text(
                       'CONFIRMAR CHEGADA',
@@ -197,13 +197,18 @@ class _MapPlaceholder extends StatelessWidget {
                   color: AppColors.colorButtonRed,
                   shape: BoxShape.circle,
                 ),
-                child: const Icon(Icons.location_on,
-                    color: Colors.white, size: 32),
+                child: const Icon(
+                  Icons.location_on,
+                  color: Colors.white,
+                  size: 32,
+                ),
               ),
               const SizedBox(height: 8),
               Container(
                 padding: const EdgeInsets.symmetric(
-                    horizontal: 12, vertical: 6),
+                  horizontal: 12,
+                  vertical: 6,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(20),
@@ -217,7 +222,9 @@ class _MapPlaceholder extends StatelessWidget {
                 child: Text(
                   local,
                   style: const TextStyle(
-                      fontSize: 12, fontWeight: FontWeight.w600),
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                  ),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -286,8 +293,11 @@ class _MetricTile extends StatelessWidget {
   final IconData icon;
   final String label;
   final String value;
-  const _MetricTile(
-      {required this.icon, required this.label, required this.value});
+  const _MetricTile({
+    required this.icon,
+    required this.label,
+    required this.value,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -311,14 +321,18 @@ class _MetricTile extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(label,
-                  style: const TextStyle(
-                      fontSize: 11, color: Colors.black38)),
-              Text(value,
-                  style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black87)),
+              Text(
+                label,
+                style: const TextStyle(fontSize: 11, color: Colors.black38),
+              ),
+              Text(
+                value,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black87,
+                ),
+              ),
             ],
           ),
         ],
@@ -340,8 +354,7 @@ class _DestinationCard extends StatelessWidget {
     return Card(
       color: Colors.white,
       elevation: 2,
-      shape:
-      RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Row(
@@ -353,8 +366,11 @@ class _DestinationCard extends StatelessWidget {
                 color: AppColors.colorButtonRed.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: const Icon(Icons.flag_rounded,
-                  color: AppColors.colorButtonRed, size: 22),
+              child: const Icon(
+                Icons.flag_rounded,
+                color: AppColors.colorButtonRed,
+                size: 22,
+              ),
             ),
             const SizedBox(width: 14),
             Expanded(
@@ -364,23 +380,24 @@ class _DestinationCard extends StatelessWidget {
                   const Text(
                     'Destino',
                     style: TextStyle(
-                        fontSize: 11,
-                        color: Colors.black38,
-                        fontWeight: FontWeight.w500),
+                      fontSize: 11,
+                      color: Colors.black38,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                   const SizedBox(height: 2),
                   Text(
                     ocorrencia.local,
                     style: const TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.black87),
+                      fontSize: 13,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.black87,
+                    ),
                   ),
                   const SizedBox(height: 2),
                   Text(
                     '${ocorrencia.id} · ${ocorrencia.titulo}',
-                    style: const TextStyle(
-                        fontSize: 11, color: Colors.black45),
+                    style: const TextStyle(fontSize: 11, color: Colors.black45),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),

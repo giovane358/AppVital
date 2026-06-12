@@ -24,10 +24,7 @@ class CustomCardMenu extends StatelessWidget {
       onTap: onTap,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
-        margin: EdgeInsets.symmetric(
-          horizontal: width * 0.05,
-          vertical: 6,
-        ),
+        margin: EdgeInsets.symmetric(horizontal: width * 0.05, vertical: 6),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(16),
@@ -36,7 +33,7 @@ class CustomCardMenu extends StatelessWidget {
           ),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.06),
+              color: Colors.black12,
               blurRadius: 8,
               offset: const Offset(0, 2),
             ),

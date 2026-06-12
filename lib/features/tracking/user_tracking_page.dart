@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vital_application/models/ocorrencia_model.dart';
 import 'package:vital_application/core/utils/colors.dart';
-import 'package:vital_application/features/user/tracking/user_tracking_bloc.dart';
+import 'package:vital_application/features/tracking/user_tracking_bloc.dart';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // ENTRY POINT
@@ -67,8 +67,11 @@ class _UserTrackingScaffold extends StatelessWidget {
         backgroundColor: AppColors.colorButtonRed,
         centerTitle: true,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new_rounded,
-              color: Colors.white, size: 20),
+          icon: const Icon(
+            Icons.arrow_back_ios_new_rounded,
+            color: Colors.white,
+            size: 20,
+          ),
           onPressed: () => Navigator.pop(context),
         ),
       ),
@@ -76,8 +79,7 @@ class _UserTrackingScaffold extends StatelessWidget {
         builder: (context, state) {
           if (state is UserTrackingLoading) {
             return const Center(
-              child: CircularProgressIndicator(
-                  color: AppColors.colorButtonRed),
+              child: CircularProgressIndicator(color: AppColors.colorButtonRed),
             );
           }
           if (state is UserTrackingEmpty) {
@@ -106,15 +108,15 @@ class _TrackingEmpty extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(Icons.search_off_rounded,
-              size: 64, color: Colors.black26),
+          Icon(Icons.search_off_rounded, size: 64, color: Colors.black26),
           const SizedBox(height: 16),
           const Text(
             'Nenhuma ocorrência ativa',
             style: TextStyle(
-                fontSize: 16,
-                color: Colors.black45,
-                fontWeight: FontWeight.w500),
+              fontSize: 16,
+              color: Colors.black45,
+              fontWeight: FontWeight.w500,
+            ),
           ),
           const SizedBox(height: 8),
           const Text(
@@ -143,8 +145,7 @@ class _TrackingContent extends StatelessWidget {
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
       child: Padding(
-        padding: EdgeInsets.symmetric(
-            horizontal: width * 0.05, vertical: 24),
+        padding: EdgeInsets.symmetric(horizontal: width * 0.05, vertical: 24),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -244,8 +245,7 @@ class _TrackingTimeline extends StatelessWidget {
     return Card(
       color: Colors.white,
       elevation: 2,
-      shape:
-      RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -286,8 +286,11 @@ class _TrackingTimeline extends StatelessWidget {
                           ),
                         ),
                         child: isDone
-                            ? const Icon(Icons.check,
-                            color: Colors.white, size: 14)
+                            ? const Icon(
+                                Icons.check,
+                                color: Colors.white,
+                                size: 14,
+                              )
                             : null,
                       ),
                       if (!isLast)
@@ -310,8 +313,7 @@ class _TrackingTimeline extends StatelessWidget {
                         fontWeight: isDone
                             ? FontWeight.w600
                             : FontWeight.normal,
-                        color:
-                        isDone ? Colors.black87 : Colors.black38,
+                        color: isDone ? Colors.black87 : Colors.black38,
                       ),
                     ),
                   ),
@@ -338,8 +340,7 @@ class _OcorrenciaInfoCard extends StatelessWidget {
     return Card(
       color: Colors.white,
       elevation: 2,
-      shape:
-      RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -347,8 +348,11 @@ class _OcorrenciaInfoCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                const Icon(Icons.info_outline_rounded,
-                    color: AppColors.colorButtonRed, size: 18),
+                const Icon(
+                  Icons.info_outline_rounded,
+                  color: AppColors.colorButtonRed,
+                  size: 18,
+                ),
                 const SizedBox(width: 8),
                 const Text(
                   'Detalhes da Ocorrência',
@@ -390,18 +394,20 @@ class _InfoRow extends StatelessWidget {
             child: Text(
               label,
               style: const TextStyle(
-                  fontSize: 12,
-                  color: Colors.black45,
-                  fontWeight: FontWeight.w500),
+                fontSize: 12,
+                color: Colors.black45,
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ),
           Expanded(
             child: Text(
               value,
               style: const TextStyle(
-                  fontSize: 13,
-                  color: Colors.black87,
-                  fontWeight: FontWeight.w600),
+                fontSize: 13,
+                color: Colors.black87,
+                fontWeight: FontWeight.w600,
+              ),
             ),
           ),
         ],
@@ -436,8 +442,11 @@ class _UnidadeCard extends StatelessWidget {
               color: Colors.white.withOpacity(0.2),
               borderRadius: BorderRadius.circular(12),
             ),
-            child: const Icon(Icons.local_shipping_rounded,
-                color: Colors.white, size: 26),
+            child: const Icon(
+              Icons.local_shipping_rounded,
+              color: Colors.white,
+              size: 26,
+            ),
           ),
           const SizedBox(width: 16),
           Column(
@@ -446,17 +455,19 @@ class _UnidadeCard extends StatelessWidget {
               const Text(
                 'Unidade em Deslocamento',
                 style: TextStyle(
-                    color: Colors.white70,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500),
+                  color: Colors.white70,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
               const SizedBox(height: 4),
               Text(
                 unidade,
                 style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold),
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ],
           ),

@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vital_application/models/ocorrencia_model.dart';
 import 'package:vital_application/core/utils/colors.dart';
 import 'package:vital_application/core/widgets/button_custom.dart';
-import 'package:vital_application/features/ops/assigned/ops_assigned_bloc.dart';
+import 'package:vital_application/features/assigned/ops_assigned_bloc.dart';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // ENTRY POINT
@@ -63,9 +63,10 @@ class _OpsAssignedScaffold extends StatelessWidget {
         title: const Text(
           'Minha Ocorrência',
           style: TextStyle(
-              color: Colors.white,
-              fontSize: 18,
-              fontWeight: FontWeight.bold),
+            color: Colors.white,
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         backgroundColor: AppColors.colorButtonRed,
         centerTitle: true,
@@ -75,8 +76,7 @@ class _OpsAssignedScaffold extends StatelessWidget {
         builder: (context, state) {
           if (state is OpsAssignedLoading) {
             return const Center(
-              child: CircularProgressIndicator(
-                  color: AppColors.colorButtonRed),
+              child: CircularProgressIndicator(color: AppColors.colorButtonRed),
             );
           }
           if (state is OpsAssignedLoaded) {
@@ -104,8 +104,7 @@ class _AssignedContent extends StatelessWidget {
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
       child: Padding(
-        padding: EdgeInsets.symmetric(
-            horizontal: width * 0.05, vertical: 24),
+        padding: EdgeInsets.symmetric(horizontal: width * 0.05, vertical: 24),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -125,9 +124,7 @@ class _AssignedContent extends StatelessWidget {
             // Botão navegar
             ButtonCustom(
               onTap: () {
-                context
-                    .read<OpsAssignedBloc>()
-                    .add(IniciarNavegacao());
+                context.read<OpsAssignedBloc>().add(IniciarNavegacao());
               },
               child: const Text(
                 'INICIAR NAVEGAÇÃO',
@@ -143,17 +140,17 @@ class _AssignedContent extends StatelessWidget {
 
             // Botão finalizar (outline)
             GestureDetector(
-              onTap: () =>
-                  Navigator.pushNamed(context, '/ops/final-service'),
+              onTap: () => Navigator.pushNamed(context, '/ops/final-service'),
               child: Container(
-                margin: const EdgeInsets.symmetric(
-                    horizontal: 45, vertical: 5),
+                margin: const EdgeInsets.symmetric(horizontal: 45, vertical: 5),
                 width: double.infinity,
                 height: 50,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30),
                   border: Border.all(
-                      color: AppColors.colorButtonRed, width: 1.5),
+                    color: AppColors.colorButtonRed,
+                    width: 1.5,
+                  ),
                   color: Colors.transparent,
                 ),
                 child: const Center(
@@ -196,9 +193,10 @@ class _AtivoBanner extends StatelessWidget {
           const Text(
             'Ocorrência Atribuída',
             style: TextStyle(
-                color: Colors.white70,
-                fontSize: 12,
-                fontWeight: FontWeight.w500),
+              color: Colors.white70,
+              fontSize: 12,
+              fontWeight: FontWeight.w500,
+            ),
           ),
           const SizedBox(height: 6),
           Text(
@@ -229,29 +227,32 @@ class _AssignedInfoCard extends StatelessWidget {
     return Card(
       color: Colors.white,
       elevation: 2,
-      shape:
-      RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
           children: [
             _InfoLine(
-                icon: Icons.location_on_outlined,
-                label: 'Local',
-                value: ocorrencia.local),
+              icon: Icons.location_on_outlined,
+              label: 'Local',
+              value: ocorrencia.local,
+            ),
             _InfoLine(
-                icon: Icons.warning_amber_rounded,
-                label: 'Nível',
-                value: ocorrencia.nivel),
+              icon: Icons.warning_amber_rounded,
+              label: 'Nível',
+              value: ocorrencia.nivel,
+            ),
             _InfoLine(
-                icon: Icons.access_time_rounded,
-                label: 'Recebida',
-                value: ocorrencia.data),
+              icon: Icons.access_time_rounded,
+              label: 'Recebida',
+              value: ocorrencia.data,
+            ),
             if (ocorrencia.unidade != null)
               _InfoLine(
-                  icon: Icons.local_shipping_rounded,
-                  label: 'Unidade',
-                  value: ocorrencia.unidade!),
+                icon: Icons.local_shipping_rounded,
+                label: 'Unidade',
+                value: ocorrencia.unidade!,
+              ),
           ],
         ),
       ),
@@ -263,8 +264,11 @@ class _InfoLine extends StatelessWidget {
   final IconData icon;
   final String label;
   final String value;
-  const _InfoLine(
-      {required this.icon, required this.label, required this.value});
+  const _InfoLine({
+    required this.icon,
+    required this.label,
+    required this.value,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -278,15 +282,19 @@ class _InfoLine extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(label,
-                  style: const TextStyle(
-                      fontSize: 11, color: Colors.black38)),
+              Text(
+                label,
+                style: const TextStyle(fontSize: 11, color: Colors.black38),
+              ),
               const SizedBox(height: 2),
-              Text(value,
-                  style: const TextStyle(
-                      fontSize: 13,
-                      color: Colors.black87,
-                      fontWeight: FontWeight.w600)),
+              Text(
+                value,
+                style: const TextStyle(
+                  fontSize: 13,
+                  color: Colors.black87,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
             ],
           ),
         ],
@@ -304,8 +312,7 @@ class _AssignedDescCard extends StatelessWidget {
     return Card(
       color: Colors.white,
       elevation: 2,
-      shape:
-      RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -314,15 +321,19 @@ class _AssignedDescCard extends StatelessWidget {
             const Text(
               'Descrição do Incidente',
               style: TextStyle(
-                  fontSize: 13,
-                  color: AppColors.colorButtonRed,
-                  fontWeight: FontWeight.w600),
+                fontSize: 13,
+                color: AppColors.colorButtonRed,
+                fontWeight: FontWeight.w600,
+              ),
             ),
             const SizedBox(height: 8),
             Text(
               descricao,
               style: const TextStyle(
-                  fontSize: 13, color: Colors.black87, height: 1.5),
+                fontSize: 13,
+                color: Colors.black87,
+                height: 1.5,
+              ),
             ),
           ],
         ),
